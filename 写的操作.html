@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+        <div class="container">
+            <div class="row">
+                    <table class="table table-dark">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                              </tr>
+                            </tbody>
+                          </table>
+            </div>
+            <div class="row"> 
+                <button id="download" type="button" class="btn btn-large btn-block btn-default">下载</button>
+            </div>
+            
+        </div>
+        
+<script src="./node_modules/xlsx/dist/xlsx.full.min.js"></script>
+<script>
+  // 为按钮绑定点击事件
+document.querySelector("#download").onclick=function(){
+    // 获取table元素
+    var table= document.querySelector("table");
+    // 调用XLSX.utils.table_to_book方法将其转化为excel数据对象
+    var wb = XLSX.utils.table_to_book(table);
+    // 调用XLSX.writeFile方法传入wb和下载的文件名称
+    XLSX.writeFile(wb,'test.xlsx');
+
+}
+</script>
+</body>
+</html>

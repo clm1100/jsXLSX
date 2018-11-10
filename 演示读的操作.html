@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浏览器读取excel</title>
+</head>
+<body>
+    <input type="file" id="excel-file">
+     <script src="./node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        // 第一步 new一个FileReader的实例
+        console.log(XLSX.utils);
+        var reader = new FileReader();
+        // 第二步 监听读取完成后的回调
+        reader.onload = function(e){
+            var data = e.target.result;
+            var wb = XLSX.read(data,{
+                type:'array'
+            });
+            // 通过SheetNames[0]得到第一个sheet的名称
+            var sheet1name =  wb.SheetNames[0];
+            // 取出第一个sheet
+            var sheet1 = wb.Sheets[sheet1name];
+            // 调用XLSX.utils.sheet_to_json方法将sheet转化为json;
+            var json = XLSX.utils.sheet_to_json(sheet1);
+            console.log(json);
+
+        }
+
+       document.querySelector("#excel-file").onchange=function(e){
+        // 第三步调用FileReader实例的readAsBinaryString方法
+        //    reader.readAsBinaryString(e.target.files[0])
+        // 第三步调用FileReader实例的readAsArrayBuffer方法
+        reader.readAsArrayBuffer(e.target.files[0])
+       }
+    </script>
+</body>
+</html>
